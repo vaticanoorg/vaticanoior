@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sucursal Virtual Personas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url(''); /* Cambia la ruta a relativa */
+            background-size:  800px 2400px;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            height: 500px;
+            -webkit-user-select: text;  /* Chrome, Safari, Opera */
+            -moz-user-select: text;     /* Firefox */
+            -ms-user-select: text;      /* IE 10+ */
+            user-select: text;          /* Standard syntax */
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 1em;
+        }
+        .logo {
+            width: 400px;
+            height: auto;
+        }
+        .user-info {
+            text-align: right;
+        }
+        .date-time {
+            margin-left: 1em;
+        }
+        .status-banner {
+            background-color:#A99F78;
+            color: white;
+            padding: 0.5em;
+            text-align: center;
+        }
+        .main-content {
+            display: flex;
+        }
+        .left-section, .right-section {
+            flex: 1;
+            padding: 1em;
+        }
+        .center-section {
+            flex: 2;
+            padding: 1em;
+        }
+        .user-info {
+            background-color: #F2F3F4;
+            color: #515A5A;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .message-box {
+            background-color: #ccc;
+            padding: 1em;
+        }
+        .quick-access {
+            background-color: #ccc;
+            padding: 1em;
+        }
+
+        /* Estilo para enlaces */
+        .message-box a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        /* Estilo para enlaces al pasar el ratón */
+        .message-box a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://www.ior.va/content/ior/en/_jcr_content/logo.img.png/1591622139280.png" alt="Logo" class="logo">
+    <div class="user-info">
+        <strong>BENVENUTI NELLA IOR</strong>
+        <p><br></p>
+        <p>NUMERO DI CONTO:</p>
+        <strong>4767645123</strong>
+    </div>
+    <div class="date-time" id="date-time">
+        <p>DATA: <span id="current-date"></span></p>
+        <p>ORA: <span id="current-time"></span></p>
+        <p>TEMPO A PAGINA: <span id="time-counter">0 segundos</span></p>
+    </div>
+</header>
+
+<div class="status-banner">
+    <strong>estratto conto bancario</strong>
+</div>
+
+<div class="main-content">
+    <div class="left-section">
+        <div class="status-banner">saldi per prodotto</div>
+        <div class="message-box">
+            <li><strong>conto fiduciario</strong></li>
+        </div>
+        <div class="status-banner">richiesta di pagamento</div>
+        <div class="message-box">
+            <a href="ruta-a-otra-pagina2.html">&ndash;&nbsp;pagamento con carta di credito</a><br>
+            <a href="ruta-a-otra-pagina3.html">&ndash;&nbsp;credito</a>
+        </div>
+    </div>
+    <div class="center-section">
+        <div class="status-banner">i miei messaggi</div>
+        <!-- Corregir la clase del contenedor -->
+        <div class="message-box-mis-mensajes">
+            <ul>
+                <li><strong>messaggi 1</strong></li>
+                <p><span id="mensaje1"></span><br></p>
+                <li><strong>messaggi 2</strong></li>
+                <p><span id="mensaje2"></span><br></p>
+                <li><strong>messaggi 3</strong></li>
+                <p><span id="mensaje3"></span><br></p>
+            </ul>
+        </div>
+    </div>
+    <div class="right-section">
+        <div class="status-banner">accesso veloce</div>
+        <div class="message-box">
+            <ul>
+                <a href="ruta-a-otra-pagina2.html">&ndash;&nbsp;donazioni</a><br>
+                <a href="ruta-a-otra-pagina2.html">&ndash;&nbsp;controllare lo stato del trasferimento</a><br>
+                <a href="ruta-a-otra-pagina2.html">&ndash;&nbsp;portafogli</a><br>
+                <a href="ruta-a-otra-pagina2.html">&ndash;&nbsp;anticipazioni di credito</a><br>
+                <a href="ruta-a-otra-pagina2.html">&ndash;&nbsp;rifinanziamento</a><br>
+                <a href="ruta-a-otra-pagina2.html">&ndash;&nbsp;Portafoglio di investimenti</a><br>
+            </ul>
+        </div>
+    </div>
+        <div class="user-info">
+        <p><strong>nome e cognome:</strong> <span id="name"></span></p>
+        <p><strong>numero di conto:</strong> <span id="accountNumber"></span></p>
+    </div>
+
+</div>
+<script>
+    // Obtener elementos de fecha y hora
+    const currentDateElem = document.getElementById('current-date');
+    const currentTimeElem = document.getElementById('current-time');
+    const timeCounterElem = document.getElementById('time-counter');
+
+    // Actualizar fecha y hora
+    function updateDateTime() {
+        const currentDate = new Date();
+        const hours = String(currentDate.getHours()).padStart(2, '0');
+        const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+        const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+        const dateStr = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+        currentDateElem.textContent = dateStr;
+        currentTimeElem.textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    // Contador de tiempo conectado
+    let timeCounter = 0;
+    setInterval(() => {
+        timeCounter++;
+        timeCounterElem.textContent = `${timeCounter} segundos`;
+    }, 1000);
+
+    // Actualizar fecha y hora cada segundo
+    setInterval(updateDateTime, 1000);
+
+    // Actualizar fecha y hora al cargar la página
+    updateDateTime();
+
+    // Obtener el usuario actual del almacenamiento local
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    // Mostrar los datos del usuario en la página
+    if (currentUser) {
+        document.getElementById("name").textContent = currentUser.name;
+        document.getElementById("accountNumber").textContent = currentUser.accountNumber;
+
+   if (currentUser) {
+        document.getElementById("mensaje1").textContent = currentUser.mensaje1;
+        document.getElementById("mensaje2").textContent = currentUser.mensaje2;
+        document.getElementById("mensaje3").textContent = currentUser.mensaje3;
+
+        
+        };
+    }
+</script>
+
+</body>
+</html>
